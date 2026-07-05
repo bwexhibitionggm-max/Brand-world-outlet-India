@@ -1,0 +1,773 @@
+@use '../variables' as *;
+
+.registration {
+  background: $color-bg-deep;
+  position: relative;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  &__box {
+    width: 100%;
+    max-width: 580px;
+    padding: 3.5rem 3rem;
+    @include glass-card;
+    border-color: rgba(255, 255, 255, 0.05);
+    background: rgba(20, 20, 20, 0.55);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    border-radius: 12px;
+    transition: $transition-smooth;
+
+    &:hover {
+      border-color: rgba(212, 175, 55, 0.2);
+    }
+
+    @include respond-to(mobile) {
+      padding: 2rem 1.5rem;
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+
+    .header-icon-wrapper {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.15);
+      color: $color-gold;
+      margin-bottom: 1.25rem;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $color-text-light;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      font-size: 0.85rem;
+      color: $color-text-muted;
+      line-height: 1.6;
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
+
+// Form Field Groups
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $color-text-muted;
+  }
+
+  .error-message {
+    font-size: 0.75rem;
+    color: $color-red;
+    margin-top: 0.25rem;
+  }
+}
+
+// Custom Input wrapper with icons
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 50px;
+  background: rgba(10, 10, 10, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  transition: $transition-fast;
+  padding: 0 1rem;
+
+  .input-icon {
+    color: $color-text-muted;
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .phone-prefix {
+    color: $color-text-light;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-right: 0.5rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    padding-right: 0.5rem;
+  }
+
+  input {
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    color: $color-text-light;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.25);
+    }
+  }
+
+  &:focus-within {
+    border-color: $color-gold;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+
+    .input-icon {
+      color: $color-gold;
+    }
+  }
+
+  &--error {
+    border-color: $color-red !important;
+
+    &:focus-within {
+      box-shadow: 0 0 10px rgba(225, 29, 72, 0.2) !important;
+    }
+
+    .input-icon {
+      color: $color-red !important;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: rgba(5, 5, 5, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.04) !important;
+
+    .input-icon,
+    .phone-prefix {
+      color: rgba(255, 255, 255, 0.2) !important;
+      border-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+    input {
+      cursor: not-allowed !important;
+      color: rgba(255, 255, 255, 0.3) !important;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.1) !important;
+      }
+    }
+  }
+
+}
+
+// Form submission button
+.btn--submit {
+  width: 100%;
+  height: 54px;
+  background: $gradient-gold;
+  color: $color-bg-deep;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: $transition-smooth;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+
+  &:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.4);
+  }
+
+  &:disabled {
+    filter: brightness(0.6);
+    cursor: not-allowed;
+  }
+}
+
+// Spinner loading animation
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(10, 10, 10, 0.2);
+  border-top-color: $color-bg-deep;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Success State Styles
+.registration__success {
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-banner {
+  text-align: center;
+  margin-bottom: 2.5rem;
+
+  &__icon {
+    font-size: 3rem;
+    color: #10b981; // Emerald Success Green
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.3));
+  }
+
+  h3 {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: $color-text-light;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: $color-text-muted;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+// ==========================================
+// TICKET STYLE PREMIUM COUPON CARD DESIGN
+// ==========================================
+.coupon-download-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.coupon-card-capture-area {
+  padding: 1rem;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.coupon-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  height: 270px;
+  border-radius: 12px;
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+  z-index: 1;
+
+  // Custom notches on top and bottom border
+  &__notch {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: $color-bg-deep;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    left: 28%; // Exactly on the dashed boundary line
+    transform: translateX(-50%);
+    z-index: 5;
+
+    &--top {
+      top: -13px;
+    }
+
+    &--bottom {
+      bottom: -13px;
+    }
+  }
+
+  // Decorative ambient glow inside coupon
+  &__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  &__diagonal-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.01) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(212, 175, 55, 0.03) 50%, rgba(212, 175, 55, 0.03) 100%);
+    background-size: 8px 8px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  // LEFT SIDE - SAVINGS RIBBON
+  &__left {
+    width: 28%;
+    background: $gradient-gold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 1.5rem;
+    text-align: center;
+    color: $color-bg-deep;
+  }
+
+  &__event-type {
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    opacity: 0.8;
+  }
+
+  &__value {
+    font-family: $font-headings;
+    font-size: 2.75rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0.5rem 0;
+    letter-spacing: -0.02em;
+
+    @include respond-to(mobile) {
+      font-size: 2.25rem;
+    }
+  }
+
+  &__off {
+    font-size: 0.75rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+  }
+
+  &__dashed-vertical {
+    position: absolute;
+    top: 0;
+    right: -1px;
+    height: 100%;
+    width: 2px;
+    border-right: 2px dashed $color-bg-deep;
+    opacity: 0.3;
+    z-index: 4;
+  }
+
+  // RIGHT SIDE - INFO DETAILS
+  &__right {
+    width: 72%;
+    padding: 1.75rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include respond-to(mobile) {
+      padding: 1.25rem 1.5rem;
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__logo {
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  }
+
+  &__brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    display: block;
+    font-family: $font-headings;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    @include metallic-silver;
+  }
+
+  &__subtitle {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: $color-text-muted;
+  }
+
+  &__details {
+    display: flex;
+    gap: 1.5rem;
+    margin: 0.75rem 0;
+
+    @include respond-to(mobile) {
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: $color-text-muted;
+
+      span {
+        line-height: 1;
+      }
+
+      &__icon {
+        color: $color-gold;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+        display: inline-block;
+      }
+    }
+  }
+
+  &__holder {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 0.5rem;
+    margin-bottom: 0.5rem;
+
+    .holder-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: $color-gold;
+      letter-spacing: 0.1em;
+    }
+
+    .holder-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: $color-text-light;
+      text-transform: uppercase;
+    }
+
+    .holder-phone {
+      font-size: 0.7rem;
+      color: $color-text-muted;
+    }
+  }
+
+  &__code-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+
+    @include respond-to(mobile) {
+      padding: 0.4rem 0.75rem;
+    }
+
+    .code-label {
+      font-size: 0.55rem;
+      font-weight: 700;
+      color: $color-text-muted;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    .code-value {
+      font-family: $font-headings;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      color: $color-text-light;
+      @include metallic-silver;
+      line-height: 1;
+      display: inline-block;
+
+      @include respond-to(mobile) {
+        font-size: 0.95rem;
+      }
+    }
+
+    .code-validity {
+      font-size: 0.6rem;
+      color: $color-gold;
+      font-weight: 600;
+      line-height: 1;
+    }
+  }
+
+  // Always formatted in the desktop layout, used for exporting clean JPEG/PNG images off-screen
+  &--printable {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 600px !important;
+    height: 270px !important;
+    max-width: 600px !important;
+    border-radius: 0 !important; // square for clean slice
+    border: none !important;
+    box-shadow: none !important;
+
+    // Reset left side to desktop layout
+    .coupon-card__left {
+      width: 28% !important;
+      height: 100% !important;
+      padding: 1.5rem !important;
+      color: $color-bg-deep !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+    }
+
+    .coupon-card__value {
+      font-size: 2.75rem !important;
+    }
+
+    // Reset right side to desktop layout
+    .coupon-card__right {
+      width: 72% !important;
+      padding: 1.75rem 2rem !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: space-between !important;
+      gap: initial !important;
+    }
+
+    // Force logo and title vertical alignment during download using inline-block
+    .coupon-card__header {
+      display: block !important;
+      line-height: 48px !important; // Match logo height for vertical alignment reference
+
+      .coupon-card__logo {
+        display: inline-block !important;
+        vertical-align: middle !important;
+        margin-right: 0.75rem !important;
+      }
+
+      .coupon-card__brand-text {
+        display: inline-block !important;
+        vertical-align: middle !important;
+        line-height: normal !important;
+      }
+    }
+
+    // Force details vertical alignment during download using inline-block
+    .detail-item {
+      display: inline-block !important;
+      vertical-align: middle !important;
+      line-height: 1.2 !important;
+
+      &__icon {
+        display: inline-block !important;
+        vertical-align: middle !important;
+        margin-right: 0.4rem !important;
+        font-size: 0.9rem !important;
+        transform: none !important; // Let vertical-align: middle center it
+      }
+
+      span {
+        display: inline-block !important;
+        vertical-align: middle !important;
+        line-height: 1.2 !important;
+      }
+    }
+
+    // Reset notches and lines to desktop layout
+    .coupon-card__notch {
+      display: block !important;
+      left: 28% !important;
+      background: #0a0a0a !important; // match capturing background to prevent gaps
+    }
+
+    .coupon-card__dashed-vertical {
+      display: block !important;
+      bottom: auto !important;
+      right: -1px !important;
+      width: 2px !important;
+      height: 100% !important;
+      border-right: 2px dashed $color-bg-deep !important;
+      border-bottom: none !important;
+      opacity: 0.3 !important;
+    }
+
+    // Reset details to desktop layout
+    .coupon-card__details {
+      flex-direction: row !important;
+      gap: 1.5rem !important;
+      margin: 0.75rem 0 !important;
+    }
+
+    // Reset code container layout for perfect vertical centering using CSS tables
+    .coupon-card__code-container {
+      display: table !important;
+      width: 100% !important;
+      padding: 0.5rem 1rem !important;
+      box-sizing: border-box !important;
+
+      .code-label {
+        display: table-cell !important;
+        vertical-align: middle !important;
+        text-align: left !important;
+        line-height: normal !important;
+      }
+
+      .code-value {
+        display: table-cell !important;
+        vertical-align: middle !important;
+        text-align: center !important;
+        font-size: 1.15rem !important;
+        line-height: normal !important;
+        font-family: $font-headings !important;
+      }
+
+      .code-validity {
+        display: table-cell !important;
+        vertical-align: middle !important;
+        text-align: right !important;
+        line-height: normal !important;
+      }
+    }
+
+    // Reset background-clip gradients during download since html2canvas doesn't support them
+    .coupon-card__title,
+    .code-value {
+      background: none !important;
+      -webkit-background-clip: initial !important;
+      -webkit-text-fill-color: initial !important;
+      color: #ffffff !important;
+    }
+  }
+
+  // Responsive rules for card layout when on mobile screens
+  @include respond-to(mobile) {
+    height: auto;
+    flex-direction: column;
+    max-width: 380px;
+
+    &__left {
+      width: 100%;
+      height: 90px;
+      padding: 1rem;
+    }
+
+    &__notch {
+      display: none; // hide notches when stacked
+    }
+
+    &__dashed-vertical {
+      bottom: -1px;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      border-right: none;
+      border-bottom: 2px dashed $color-bg-deep;
+    }
+
+    &__right {
+      width: 100%;
+      gap: 1rem;
+    }
+  }
+}
+
+// Download Button
+.btn--download {
+  background: transparent;
+  color: $color-gold;
+  border: 1px solid $color-gold;
+  padding: 1rem 2.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+
+  &:hover {
+    background: $color-gold;
+    color: $color-bg-deep;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.45);
+  }
+
+  &:disabled {
+    filter: brightness(0.6);
+    cursor: not-allowed;
+  }
+}
+
+.coupon-download-instructions {
+  font-size: 0.8rem;
+  color: $color-text-muted;
+  text-align: center;
+  max-width: 460px;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  justify-content: center;
+
+  .check-icon {
+    color: $color-gold;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+}
+
+.btn-link-reset {
+  margin-top: 1.5rem;
+  background: transparent;
+  color: $color-text-muted;
+  font-size: 0.8rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  letter-spacing: 0.05em;
+
+  &:hover {
+    color: $color-gold;
+  }
+}

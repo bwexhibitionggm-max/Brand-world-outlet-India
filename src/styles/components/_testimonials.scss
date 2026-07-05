@@ -1,0 +1,271 @@
+@use '../variables' as *;
+
+.testimonials {
+  background: $color-bg-dark;
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    
+    @include respond-to(tablet) {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 0 0.5rem;
+    }
+  }
+}
+
+.reel-card {
+  @include glass-card;
+  border-color: rgba(255, 255, 255, 0.04);
+  background: rgba(20, 20, 20, 0.45);
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: $transition-smooth;
+  
+  &:hover {
+    background: rgba(25, 25, 25, 0.85);
+    border-color: rgba(212, 175, 55, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+    
+    .reel-card__bg-img {
+      transform: scale(1.06);
+    }
+    
+    .reel-card__play-btn {
+      background: $color-gold;
+      color: $color-bg-deep;
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.6);
+    }
+  }
+  
+  // Upper cover section mimicking an active video
+  &__video-cover {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  &__bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.65) contrast(1.1);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  
+  &__video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.1) 60%, rgba(0, 0, 0, 0.4) 100%);
+    z-index: 1;
+  }
+  
+  &__views-badge {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    padding: 0.3rem 0.75rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 20px;
+    color: $color-text-light;
+    z-index: 2;
+  }
+  
+  &__play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 2px solid $color-silver;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-text-light;
+    z-index: 2;
+    transition: $transition-smooth;
+    padding-left: 4px; // Align play icon center
+  }
+  
+  &__creator-info {
+    position: absolute;
+    bottom: 1.25rem;
+    left: 1.25rem;
+    right: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 2;
+    
+    .creator-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid $color-gold;
+      object-fit: cover;
+    }
+    
+    .creator-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: $color-text-light;
+      letter-spacing: 0.05em;
+    }
+    
+    .creator-role {
+      font-size: 0.7rem;
+      color: $color-gold;
+      display: block;
+      letter-spacing: 0.05em;
+    }
+  }
+  
+  // Lower text details
+  &__content {
+    padding: 2rem 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    
+    .quote-icon {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2.25rem;
+      color: rgba(255, 255, 255, 0.03);
+      pointer-events: none;
+    }
+  }
+  
+  &__stars {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    
+    .star-icon {
+      color: $color-gold;
+      font-size: 0.95rem;
+    }
+  }
+  
+  &__text {
+    font-size: 0.88rem;
+    color: $color-text-muted;
+    line-height: 1.6;
+    font-style: italic;
+  }
+}
+
+// Video Modal Styles for YouTube/Instagram Embeds
+.video-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(5, 5, 5, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.video-modal-content {
+  position: relative;
+  background: #0f0f0f;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  
+  // Default Widescreen (YouTube)
+  width: 100%;
+  max-width: 820px;
+  aspect-ratio: 16 / 9;
+  
+  // Instagram Reel Modifier (Vertical Phone Frame)
+  &--vertical {
+    max-width: 400px;
+    width: 100%;
+    height: 80vh;
+    max-height: 720px;
+    aspect-ratio: 9 / 16;
+    
+    @include respond-to(mobile) {
+      height: 75vh;
+      max-width: 320px;
+    }
+  }
+  
+  @include respond-to(mobile) {
+    border-radius: 12px;
+  }
+}
+
+.video-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: $color-text-light;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: $transition-fast;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: $color-gold;
+    transform: scale(1.05);
+  }
+}
+
+.iframe-wrapper {
+  width: 100%;
+  height: 100%;
+  background: #000;
+  
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #000;
+  }
+}

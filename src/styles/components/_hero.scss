@@ -1,0 +1,294 @@
+@use '../variables' as *;
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px;
+  padding-bottom: 4rem;
+  overflow: hidden;
+
+  &__bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=1600&auto=format&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+    z-index: -2;
+  }
+
+  &__bg-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(10, 10, 10, 0.4) 0%, rgba(10, 10, 10, 0.95) 85%, #0a0a0a 100%);
+    z-index: -1;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    gap: 3rem;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 850px;
+  }
+
+  &__logo-wrapper {
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.1));
+  }
+
+  &__badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: $color-gold;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    padding-bottom: 0.5rem;
+  }
+
+  &__title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    
+    @include respond-to(tablet) {
+      font-size: 2.75rem;
+    }
+    
+    @include respond-to(mobile) {
+      font-size: 2.25rem;
+    }
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: $color-text-muted;
+    max-width: 600px;
+    margin-bottom: 2.5rem;
+    
+    @include respond-to(mobile) {
+      font-size: 1rem;
+    }
+  }
+
+  // Countdown timer styles
+  &__countdown {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    
+    @include respond-to(mobile) {
+      gap: 0.5rem;
+    }
+    
+    .countdown-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      @include glass-card;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(18, 18, 18, 0.6);
+      
+      @include respond-to(mobile) {
+        width: 60px;
+        height: 60px;
+      }
+      
+      &__num {
+        font-family: $font-headings;
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 1;
+        color: $color-text-light;
+        
+        @include respond-to(mobile) {
+          font-size: 1.25rem;
+        }
+      }
+      
+      &__label {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: $color-text-muted;
+        margin-top: 0.25rem;
+        
+        @include respond-to(mobile) {
+          font-size: 0.55rem;
+        }
+      }
+    }
+    
+    .countdown-divider {
+      font-family: $font-headings;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: $color-gold;
+      animation: pulse 1s infinite alternate;
+    }
+  }
+
+  &__cta-wrapper {
+    width: 100%;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 1.25rem 2.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border-radius: 4px;
+    transition: $transition-smooth;
+    
+    @include respond-to(mobile) {
+      padding: 1rem 1.75rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  .btn--primary {
+    background: $color-gold;
+    color: $color-bg-deep;
+    border: 1px solid $color-gold;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.25);
+    
+    &:hover {
+      background: transparent;
+      color: $color-gold;
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+    }
+  }
+
+  .btn--disabled, .btn:disabled {
+    filter: brightness(0.6) !important;
+    cursor: not-allowed !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+    &:hover {
+      background: inherit !important;
+      color: inherit !important;
+      box-shadow: none !important;
+    }
+  }
+
+  // Details Grid at Bottom
+  &__details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    width: 100%;
+    max-width: 1000px;
+    margin-top: 1rem;
+    
+    @include respond-to(tablet) {
+      gap: 1rem;
+    }
+    
+    @include respond-to(mobile) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+  }
+
+  .hero-detail-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    @include glass-card;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(26, 26, 26, 0.4);
+    transition: $transition-smooth;
+    
+    &:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 175, 55, 0.3);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    
+    &__icon {
+      font-size: 2.25rem;
+      color: $color-gold;
+      flex-shrink: 0;
+    }
+    
+    &__text {
+      h4 {
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.25rem;
+        color: $color-text-light;
+      }
+      
+      p {
+        font-size: 0.85rem;
+        color: $color-text-muted;
+      }
+    }
+
+    &--clickable {
+      cursor: pointer;
+      text-decoration: none;
+
+      &:hover {
+        transform: translateY(-5px);
+        border-color: rgba(212, 175, 55, 0.5);
+        box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+
+        .view-map-link {
+          color: $color-gold;
+        }
+      }
+    }
+
+    .view-map-link {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: rgba(212, 175, 55, 0.7);
+      margin-top: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: color 0.2s ease;
+    }
+  }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
+}

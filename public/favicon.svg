@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <defs>
+    <!-- Silver Gradient for Rings & Text -->
+    <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="25%" stop-color="#cfd8dc" />
+      <stop offset="50%" stop-color="#90a4ae" />
+      <stop offset="75%" stop-color="#cfd8dc" />
+      <stop offset="100%" stop-color="#78909c" />
+    </linearGradient>
+    
+    <!-- Dark Radial Gradient for Logo Background -->
+    <radialGradient id="darkBg" cx="50%" cy="50%" r="50%" fx="30%" fy="30%">
+      <stop offset="0%" stop-color="#2c2c2c" />
+      <stop offset="70%" stop-color="#121212" />
+      <stop offset="100%" stop-color="#080808" />
+    </radialGradient>
+
+    <!-- Drop Shadow for metallic elements -->
+    <filter id="logoShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Main Circular Background -->
+  <circle cx="100" cy="100" r="95" fill="url(#darkBg)" stroke="url(#silverGradient)" stroke-width="3" />
+  
+  <!-- Inner thin silver ring -->
+  <circle cx="100" cy="100" r="90" fill="none" stroke="url(#silverGradient)" stroke-width="1" stroke-opacity="0.6" />
+
+  <!-- "BW" Heading -->
+  <text
+    x="100"
+    y="95"
+    fill="url(#silverGradient)"
+    font-family="'Cinzel', 'Playfair Display', 'Georgia', serif"
+    font-size="54"
+    font-weight="800"
+    text-anchor="middle"
+    letter-spacing="-1"
+  >BW</text>
+
+  <!-- "EXHIBITION" text -->
+  <text
+    x="100"
+    y="126"
+    fill="url(#silverGradient)"
+    font-family="'Cinzel', 'Montserrat', 'Helvetica', sans-serif"
+    font-size="16"
+    font-weight="700"
+    letter-spacing="2.5"
+    text-anchor="middle"
+  >EXHIBITION</text>
+
+  <!-- "— INDIA —" text -->
+  <text
+    x="100"
+    y="152"
+    fill="url(#silverGradient)"
+    font-family="'Cinzel', 'Montserrat', 'Helvetica', sans-serif"
+    font-size="12"
+    font-weight="600"
+    letter-spacing="1.5"
+    text-anchor="middle"
+    opacity="0.9"
+  >— INDIA —</text>
+</svg>

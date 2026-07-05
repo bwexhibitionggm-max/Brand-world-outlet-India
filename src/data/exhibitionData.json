@@ -1,0 +1,142 @@
+{
+  "eventDetails": {
+    "title": "BW EXHIBITION INDIA",
+    "subheading": "Extra Flat ₹500 OFF on Premium Branded Clothing",
+    "dates": "July 3rd – 5th, 2026",
+    "timings": "10:00 AM – 10:00 PM",
+    "venue": "SHERATON HYDERABAD HOTEL",
+    "address": "115/1, Nanakramguda Rd, Financial District, Gachibowli, Hyderabad, Nanakramguda, Telangana 500032",
+    "couponValue": "₹500 OFF",
+    "couponValidity": "Valid till 5th July 2026",
+    "bannerText": "EXCLUSIVE DESIGNER APPAREL & LUXURY STREETWEAR",
+    "locationLink": "https://maps.app.goo.gl/12fzKPy8KkL9E5SF6?g_st=ic",
+    "timerTarget": "2026-07-05T23:59"
+  },
+  "brands": [
+    "Armani Exchange",
+    "Zara",
+    "Calvin Klein",
+    "Tommy Hilfiger",
+    "Gucci",
+    "Louis Vuitton",
+    "Prada",
+    "Hugo Boss",
+    "Versace",
+    "Ralph Lauren"
+  ],
+  "highlights": [
+    {
+      "id": 1,
+      "title": "Premium Global Brands",
+      "description": "Shop the finest designer garments and premium streetwear labels all under one roof.",
+      "badge": "LUXURY"
+    },
+    {
+      "id": 2,
+      "title": "Unprecedented Discounts",
+      "description": "Get flat savings and up to 70% off retail pricing on summer collections.",
+      "badge": "UP TO 70% OFF"
+    },
+    {
+      "id": 3,
+      "title": "Exclusive Flat ₹500 Coupon",
+      "description": "Register today and receive a flat ₹500 off coupon instantly to redeem at the venue.",
+      "badge": "LIMITED OFFERS"
+    },
+    {
+      "id": 4,
+      "title": "Curated Runway Styles",
+      "description": "Handpicked seasonal wardrobe additions tailored for the summer fashion trendsetters.",
+      "badge": "NEW ARRIVALS"
+    }
+  ],
+  "gallery": [
+    {
+      "id": 1781517068234,
+      "url": "/gallery/summer_fashion_1.png",
+      "caption": "Elegant Summer Streetwear",
+      "category": "Exhibition Preview"
+    },
+    {
+      "id": 1781517084938,
+      "url": "/gallery/summer_fashion_2.png",
+      "caption": "Chic Designer Resort Wear",
+      "category": "Exhibition Preview"
+    },
+    {
+      "id": 1781517101470,
+      "url": "/gallery/summer_fashion_3.png",
+      "caption": "Luxury Fashion & Accessories",
+      "category": "Trending"
+    },
+    {
+      "id": 1781517119263,
+      "url": "/gallery/summer_fashion_4.png",
+      "caption": "Premium Couple Style Lookbook",
+      "category": "Trending"
+    }
+  ],
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Kriti Sharma",
+      "role": "Fashion Influencer",
+      "rating": 5,
+      "text": "The flat ₹500 OFF coupon made shopping my favorite Zara jackets even sweeter! The venue at Radisson Hotel is majestic.",
+      "views": "24.5K Views",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80",
+      "videoUrl": "https://www.youtube.com/embed/4kHRN2gCa1k"
+    },
+    {
+      "id": 2,
+      "name": "Rohan Malhotra",
+      "role": "Designer Consultant",
+      "rating": 5,
+      "text": "Highly curated collection of premium streetwear and heritage brands. Downloaded my code in 10 seconds and scanned it directly at the billing counter.",
+      "views": "18.2K Views",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80",
+      "videoUrl": "https://www.youtube.com/embed/F-6CdJ4GOW0"
+    },
+    {
+      "id": 3,
+      "name": "Pooja Deshmukh",
+      "role": "Luxury Fashion Blogger",
+      "rating": 5,
+      "text": "Bhopal’s biggest fashion exhibition. Grabbed some amazing Ralph Lauren shirts. Registration is super easy and the downloaded voucher card is beautiful!",
+      "views": "31.9K Views",
+      "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&auto=format&fit=crop&q=80",
+      "videoUrl": "https://www.youtube.com/embed/UBzj-sCpfB4"
+    }
+  ],
+  "faqs": [
+    {
+      "question": "How do I redeem my flat ₹500 OFF coupon?",
+      "answer": "Register on the website, download the generated coupon card (PNG), and present it at the billing counter of the exhibition at Radisson Hotel Bhopal during checkout."
+    },
+    {
+      "question": "Is the coupon valid on all premium brands?",
+      "answer": "Yes, the coupon is valid on a minimum bill purchase of ₹3,000 across all participating premium and luxury brands."
+    },
+    {
+      "question": "What are the timings and entry fee for the event?",
+      "answer": "Entry is completely free! The event is open from June 25th to 28th, 2026, starting at 10:00 AM and closing at 9:00 PM."
+    }
+  ],
+  "termsAndConditions": [
+    "This coupon is valid exclusively at the BW Exhibition India, {venue} ({dates}).",
+    "Only one coupon is redeemable per registered mobile number/email address.",
+    "Minimum purchase amount of ₹3,000 is required to apply the flat {couponValue} discount.",
+    "This coupon cannot be clubbed with other pre-existing flat sale offers or exchanged for cash.",
+    "Testing"
+  ],
+  "googleFormConfig": {
+    "sheetLink": "https://docs.google.com/spreadsheets/d/1DT-NJP56kGuoubTxMQeg3-UMcdHXExCqit37w7AveOQ/edit?usp=sharing",
+    "formLink": "https://docs.google.com/forms/d/e/1FAIpQLSewHrcuEsV0bdFB3_77PcHLQ3b6H-BESl40Px_bbws1fuHdkg/viewform?usp=header",
+    "actionUrl": "https://script.google.com/macros/s/AKfycbzSbNmhAB6rR80kOQ9a-zOFTLOic5hnKWMB-LNIQXK0LW2SycByjKd4UuPkjcpYSI_rwg/exec",
+    "entryName": "entry.1846128796",
+    "entryEmail": "entry.1533091110",
+    "entryPhone": "entry.1863114332",
+    "subsheetName": "zeel",
+    "entrySubsheet": "entry.840729428"
+  }
+}
