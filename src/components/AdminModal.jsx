@@ -17,7 +17,7 @@ import {
   RiListSettingsLine,
   RiGoogleLine
 } from 'react-icons/ri';
-import { ADMIN_CREDENTIALS, GITHUB_CONFIG } from '../config/adminConfig';
+import { ADMIN_CREDENTIALS, GITHUB_CONFIG, IMAGEKIT_CONFIG } from '../config/adminConfig';
 import SafeImage from './SafeImage';
 import { parseEventEndDate, formatDateToDatetimeLocal, parseEventDateRange, formatEventDateRange } from '../utils/dateParser';
 
@@ -536,6 +536,23 @@ const AdminModal = ({ eventData, onUpdateData, onClose }) => {
 
         finalUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${uploadPath}`;
 
+        // Also upload to ImageKit CDN directly
+        try {
+          const ikFormData = new FormData();
+          ikFormData.append('file', newImageFile);
+          ikFormData.append('fileName', cleanFileName);
+          ikFormData.append('publicKey', IMAGEKIT_CONFIG.publicKey || 'public_ivBA6FhJVjetXoeyxuRrDKI4vSc=');
+          ikFormData.append('folder', '/gallery');
+          ikFormData.append('useUniqueFileName', 'false');
+
+          await fetch('https://upload.imagekit.io/api/v1/files/upload', {
+            method: 'POST',
+            body: ikFormData
+          });
+        } catch (e) {
+          console.warn('ImageKit direct upload info:', e);
+        }
+
         if (newImageLocalPreview) {
           setResolvedImages(prev => ({
             ...prev,
@@ -646,6 +663,23 @@ const AdminModal = ({ eventData, onUpdateData, onClose }) => {
       }
 
       const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${uploadPath}`;
+
+      // Also upload to ImageKit CDN directly
+      try {
+        const ikFormData = new FormData();
+        ikFormData.append('file', file);
+        ikFormData.append('fileName', cleanFileName);
+        ikFormData.append('publicKey', IMAGEKIT_CONFIG.publicKey || 'public_ivBA6FhJVjetXoeyxuRrDKI4vSc=');
+        ikFormData.append('folder', '/gallery');
+        ikFormData.append('useUniqueFileName', 'false');
+
+        await fetch('https://upload.imagekit.io/api/v1/files/upload', {
+          method: 'POST',
+          body: ikFormData
+        });
+      } catch (e) {
+        console.warn('ImageKit direct upload info:', e);
+      }
 
       // Create local preview URL to display instantly without downloading
       const localUrl = URL.createObjectURL(file);

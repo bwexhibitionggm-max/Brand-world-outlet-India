@@ -1,7 +1,5 @@
 /**
- * Admin Panel Credentials and GitHub Repository Configuration
- * 
- * NOTE: You can edit the username and password here to secure your admin panel.
+ * Admin Panel Credentials, GitHub Repository Configuration, and ImageKit CDN Settings
  */
 
 export const ADMIN_CREDENTIALS = {
@@ -14,4 +12,9 @@ export const GITHUB_CONFIG = {
   repo: import.meta.env.VITE_GITHUB_REPO || 'BW_exhibition_coupon',
   path: import.meta.env.VITE_GITHUB_PATH || 'src/data/exhibitionData.json',
   branch: import.meta.env.VITE_GITHUB_BRANCH || 'feat/inhasment'
+};
+
+export const IMAGEKIT_CONFIG = {
+  urlEndpoint: import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || 'https://ik.imagekit.io/kuzfysjng',
+  publicKey: import.meta.env.VITE_IMAGEKIT_PUBLIC_KEY || 'public_ivBA6FhJVjetXoeyxuRrDKI4vSc='
 };
