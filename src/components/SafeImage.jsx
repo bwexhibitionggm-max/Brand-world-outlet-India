@@ -3,8 +3,24 @@ import { GITHUB_CONFIG } from '../config/adminConfig';
 
 const IMAGEKIT_ENDPOINT = (import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || 'https://ik.imagekit.io/kuzfysjng').replace(/\/$/, '');
 
+const resolveInitialSrc = (initialSrc) => {
+  if (!initialSrc) return initialSrc;
+  let currentSrc = initialSrc;
+  if (initialSrc.startsWith('https://raw.githubusercontent.com/')) {
+    const publicGalleryIdx = initialSrc.indexOf('/public/gallery/');
+    if (publicGalleryIdx !== -1) {
+      currentSrc = initialSrc.substring(publicGalleryIdx + 7);
+    }
+  }
+  if (currentSrc.startsWith('/gallery/') || currentSrc.startsWith('gallery/')) {
+    const cleanPath = currentSrc.startsWith('/') ? currentSrc : `/${currentSrc}`;
+    return `${IMAGEKIT_ENDPOINT}${cleanPath}`;
+  }
+  return currentSrc;
+};
+
 const SafeImage = forwardRef(({ src, alt, className, onError, ...props }, ref) => {
-  const [resolvedSrc, setResolvedSrc] = useState(src);
+  const [resolvedSrc, setResolvedSrc] = useState(() => resolveInitialSrc(src));
   const [fallbackStep, setFallbackStep] = useState(0);
 
   useEffect(() => {
