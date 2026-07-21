@@ -10,7 +10,7 @@ import AdminModal from './components/AdminModal';
 import initialExhibitionData from './data/exhibitionData.json';
 import { GITHUB_CONFIG } from './config/adminConfig';
 import { Analytics } from '@vercel/analytics/react';
-import './styles/main.scss'; 
+import './styles/main.scss';
 
 function App() {
   const [eventData, setEventData] = useState(initialExhibitionData);
@@ -91,3 +91,4 @@ function App() {
 }
 
 export default App;
+

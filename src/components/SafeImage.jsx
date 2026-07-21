@@ -1,8 +1,27 @@
 import { useState, useEffect, forwardRef } from 'react';
 import { GITHUB_CONFIG } from '../config/adminConfig';
 
-const SafeImage = forwardRef(({ src, alt, className, ...props }, ref) => {
-  const [resolvedSrc, setResolvedSrc] = useState(src);
+const IMAGEKIT_ENDPOINT = (import.meta.env.VITE_IMAGEKIT_URL_ENDPOINT || 'https://ik.imagekit.io/kuzfysjng').replace(/\/$/, '');
+
+const resolveInitialSrc = (initialSrc) => {
+  if (!initialSrc) return initialSrc;
+  let currentSrc = initialSrc;
+  if (initialSrc.startsWith('https://raw.githubusercontent.com/')) {
+    const publicGalleryIdx = initialSrc.indexOf('/public/gallery/');
+    if (publicGalleryIdx !== -1) {
+      currentSrc = initialSrc.substring(publicGalleryIdx + 7);
+    }
+  }
+  if (currentSrc.startsWith('/gallery/') || currentSrc.startsWith('gallery/')) {
+    const cleanPath = currentSrc.startsWith('/') ? currentSrc : `/${currentSrc}`;
+    return `${IMAGEKIT_ENDPOINT}${cleanPath}`;
+  }
+  return currentSrc;
+};
+
+const SafeImage = forwardRef(({ src, alt, className, onError, ...props }, ref) => {
+  const [resolvedSrc, setResolvedSrc] = useState(() => resolveInitialSrc(src));
+  const [fallbackStep, setFallbackStep] = useState(0);
 
   useEffect(() => {
     let active = true;
@@ -14,7 +33,6 @@ const SafeImage = forwardRef(({ src, alt, className, ...props }, ref) => {
         return;
       }
 
-      // Convert raw GitHub URLs pointing to public/gallery to local relative paths
       let currentSrc = src;
       if (src.startsWith('https://raw.githubusercontent.com/')) {
         const publicGalleryIdx = src.indexOf('/public/gallery/');
@@ -23,51 +41,19 @@ const SafeImage = forwardRef(({ src, alt, className, ...props }, ref) => {
         }
       }
 
-      // Case 1: Relative Gallery path (e.g. /gallery/filename.png)
-      if (currentSrc.startsWith('/gallery/')) {
-        // First check if the file is available locally to avoid redundant GitHub API calls
-        try {
-          const localCheck = await fetch(currentSrc, { method: 'HEAD' });
-          if (localCheck.ok) {
-            if (active) {
-              setResolvedSrc(currentSrc);
-              return;
-            }
-          }
-        } catch (err) {
-          console.warn('Local image check failed:', err);
+      // Case 1: Relative gallery or asset path (e.g., /gallery/filename.png)
+      if (currentSrc.startsWith('/gallery/') || currentSrc.startsWith('gallery/')) {
+        const cleanPath = currentSrc.startsWith('/') ? currentSrc : `/${currentSrc}`;
+        const ikUrl = `${IMAGEKIT_ENDPOINT}${cleanPath}`;
+        
+        if (active) {
+          setResolvedSrc(ikUrl);
+          setFallbackStep(0);
         }
-
-        // If not available locally, try to resolve via GitHub if in local dev and token exists
-        const isLocalDev = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-        if (isLocalDev && token) {
-          try {
-            const owner = GITHUB_CONFIG.owner;
-            const repo = GITHUB_CONFIG.repo;
-            const branch = GITHUB_CONFIG.branch;
-            const path = `public${currentSrc}`; // Maps to public/gallery/filename.png
-            
-            const apiUr = `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`;
-            const res = await fetch(apiUr, {
-              headers: { 
-                Authorization: `Bearer ${token}`,
-                Accept: 'application/vnd.github+json'
-              }
-            });
-            if (res.ok && active) {
-              const data = await res.json();
-              if (data.content) {
-                setResolvedSrc(`data:image/png;base64,${data.content.replace(/\s/g, '')}`);
-                return;
-              }
-            }
-          } catch (e) {
-            console.error('Failed to resolve local development gallery image from GitHub', e);
-          }
-        }
+        return;
       }
 
-      // Case 2: Raw GitHub URL (fallback support for non-gallery or other GitHub files)
+      // Case 2: Raw GitHub URL fallback
       if (currentSrc.startsWith('https://raw.githubusercontent.com/')) {
         if (token) {
           try {
@@ -125,8 +111,26 @@ const SafeImage = forwardRef(({ src, alt, className, ...props }, ref) => {
   }, [src]);
 
   const handleError = (e) => {
-    if (src && (src.startsWith('/gallery/') || src.startsWith('https://raw.githubusercontent.com/'))) {
+    let cleanPath = src;
+    if (src && src.startsWith('https://raw.githubusercontent.com/')) {
+      const publicGalleryIdx = src.indexOf('/public/gallery/');
+      if (publicGalleryIdx !== -1) {
+        cleanPath = src.substring(publicGalleryIdx + 7);
+      }
+    }
+
+    if (fallbackStep === 0 && cleanPath && (cleanPath.startsWith('/gallery/') || cleanPath.startsWith('gallery/'))) {
+      // Fallback 1: Local image path
+      setFallbackStep(1);
+      e.target.src = cleanPath.startsWith('/') ? cleanPath : `/${cleanPath}`;
+    } else if (fallbackStep <= 1 && src) {
+      // Fallback 2: Placeholder image
+      setFallbackStep(2);
       e.target.src = 'https://images.unsplash.com/photo-1579546929518-9e396f3cc809?w=800';
+    }
+
+    if (onError) {
+      onError(e);
     }
   };
 
